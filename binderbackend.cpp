@@ -4,12 +4,41 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include<windows.h>
 
-using namespace std;
+//==============================================================================
+void spawnProgram(char* programName)
+{
+  /*
+    CreateProcess(...) is the closest substitue for linux fork() I found.
+		I found it here:
+    https://msdn.microsoft.com/en-us/library/windows/desktop/ms682512(v=vs.85).aspx
+  */
+  STARTUPINFO si; // Pointer to STARTUPINFO structure
+  PROCESS_INFORMATION pi; // Pointer to PROCESS_INFORMATION structure
 
+  ZeroMemory( &si, sizeof(si) ); // initialize to empty memory, e.g. NULL
+  si.cb = sizeof(si);
+  ZeroMemory( &pi, sizeof(pi) ); // same ^
+
+  // Start the new process.
+    if( !CreateProcess( NULL,   programName, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+    {
+      printf( "CreateProcess failed (%d).\n", GetLastError() );
+    }
+    else
+    {
+      printf("Starting Program: %s", programName);
+    }
+}
+//==============================================================================
+
+													       /* Main */
+
+//==============================================================================
 int main()
 {
-	/* Go through the binaries found in the header file*/
+	// Go through the binaries found in the header file
 	for(int progIndex = 0; 	progIndex < NUM_BINARIES; ++progIndex)
 	{
 		// Create a temporary file you can use the tmpnam() function for this.
@@ -31,3 +60,4 @@ int main()
 	}
 	return 0;
 }
+//==============================================================================
