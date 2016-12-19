@@ -6,11 +6,7 @@
 #include "codearray.h" // source of our executables.
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include<windows.h>
-
 //==============================================================================
 void spawnProcess(char* progName)
 {
@@ -33,7 +29,7 @@ void spawnProcess(char* progName)
     }
     else
     {
-      printf("Starting Program: %s", programName);
+      printf("Starting Program: %s", progName);
     }
 }
 //==============================================================================
