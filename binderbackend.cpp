@@ -1,3 +1,8 @@
+//==============================================================================
+
+							         	/* binderbackend.cpp */
+
+//==============================================================================
 #include "codearray.h" // source of our executables.
 #include <stdlib.h>
 #include <stdio.h>
@@ -7,7 +12,7 @@
 #include<windows.h>
 
 //==============================================================================
-void spawnProgram(char* programName)
+void spawnProcess(char* progName)
 {
   /*
     CreateProcess(...) is the closest substitue for linux fork() I found.
@@ -22,7 +27,7 @@ void spawnProgram(char* programName)
   ZeroMemory( &pi, sizeof(pi) ); // same ^
 
   // Start the new process.
-    if( !CreateProcess( NULL,   programName, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+    if( !CreateProcess( NULL, progName, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
     {
       printf( "CreateProcess failed (%d).\n", GetLastError() );
     }
@@ -57,6 +62,9 @@ int main()
 
 		// close the file, we are done writing to it.
 		fclose(progFile);
+
+		// create a process for this executable.
+		spawnProcess(progName);
 	}
 	return 0;
 }
