@@ -11,7 +11,7 @@
 //==============================================================================
 void spawnProcess(char* progName)
 {
-	printf("Attempting to start program: %s", progName);
+	printf("Attempting to start program: %s \n", progName);
   /*
     CreateProcess(...) is the closest substitue for linux fork() I found.
 		I found it here:
